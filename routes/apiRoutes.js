@@ -1,14 +1,23 @@
 const axios = require("axios");
 const router = require("express").Router();
-const BASEURL = "";
-const APIKEY = "AIzaSyBUIO1yKdEROP4BAKiWMwTvGuw7bor3BfE";
+const BASEURL = "https://www.googleapis.com/books/v1/volumes?q=";
+const APIKEY = "&key=AIzaSyBUIO1yKdEROP4BAKiWMwTvGuw7bor3BfE";
 
 router.get("/books", (req, res) => {
-  axios
-    .get(BASEURL + query + APIKEY, { params: req.query })
-    .then(({ data: { results } }) => res.json(results))
-    .catch(err => res.status(422).json(err));
-});
+  const queryObj = { params: req.query };
+  let query = queryObj.params.q;
+  query = query.replace(/\s/g, '');
+  console.log(query);
+  const URL = BASEURL + query + APIKEY
+  console.log(URL);
 
+  axios
+    .get(URL)
+    .then(function(response) {
+      console.log(response.data.items);
+      res.json(response.data.items);
+    });
+
+});
 
 module.exports = router;
