@@ -1,14 +1,15 @@
 const axios = require("axios");
 const router = require("express").Router();
-const BASEURL = "https://www.googleapis.com/books/v1/volumes?q=";
-const APIKEY = "&key=AIzaSyBUIO1yKdEROP4BAKiWMwTvGuw7bor3BfE";
 
-router.get("/books", (req, res) => {
+const BASEURL = "https://www.googleapis.com/books/v1/volumes?q=";
+// const APIKEY = "&key=AIzaSyBUIO1yKdEROP4BAKiWMwTvGuw7bor3BfE";
+
+router.get("/search", (req, res) => {
   const queryObj = { params: req.query };
   let query = queryObj.params.q;
   query = query.replace(/\s/g, '');
   console.log(query);
-  const URL = BASEURL + query + APIKEY
+  const URL = BASEURL + query;
   console.log(URL);
 
   axios
@@ -16,7 +17,8 @@ router.get("/books", (req, res) => {
     .then(function(response) {
       console.log(response.data.items);
       res.json(response.data.items);
-    });
+    })
+    .catch(err => console.log(err));
 
 });
 

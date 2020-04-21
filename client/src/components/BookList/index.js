@@ -30,9 +30,15 @@ export function BookListItem({
             <p>Written By: {authors}</p>
             <p>Description: {description}</p>
             <button>
-              <a target="_blank" href={href}>View</a>
+              <a target="_blank" rel="noopener noreferrer" href={href}>View</a>
             </button>
-            <button>
+            <button onClick={() => this.saveBook(
+              {title: title,
+              authors: authors,
+              description: description,
+              image: image,
+              link: href}
+            )}>
               Save
             </button>
           </Col>
