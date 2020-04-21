@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Input from "../components/Input";
 import Button from "../components/Button";
+import SaveBtn from "../components/SaveBtn";
 import API from "../utils/API";
 import { BookList, BookListItem } from "../components/BookList";
 import { Container, Row, Col } from "../components/Grid";
@@ -98,11 +99,12 @@ class Search extends Component {
                           authors={book.volumeInfo.authors}
                           href={book.volumeInfo.previewLink}
                           description={book.volumeInfo.description}
-                          saveBook={this.saveBook}
-                        // image={book.volumeInfo.imageLinks.smallThumbnail || "https://placehold.it/300x300"}
+                          // thumbnail={book.volumeInfo.imageLinks.thumbnail}
+                          thumbnail={"https://placehold.it/300x300"}
                         />
                       );
                     })}
+                  <SaveBtn saveBook={this.saveBook} />
                   </BookList>
                 )}
             </Col>

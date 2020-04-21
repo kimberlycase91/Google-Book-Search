@@ -2,7 +2,6 @@ const axios = require("axios");
 const router = require("express").Router();
 
 const BASEURL = "https://www.googleapis.com/books/v1/volumes?q=";
-// const APIKEY = "&key=AIzaSyBUIO1yKdEROP4BAKiWMwTvGuw7bor3BfE";
 
 router.get("/search", (req, res) => {
   const queryObj = { params: req.query };

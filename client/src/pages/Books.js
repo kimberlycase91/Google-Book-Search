@@ -1,17 +1,13 @@
 import React, { Component } from "react";
 import DeleteBtn from "../components/DeleteBtn";
-import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
-import { List, ListItem } from "../components/List";
+import { BookList, BookListItem } from "../components/BookList";
 
 class Books extends Component {
   state = {
     books: [],
-    title: "",
-    author: "",
-    synopsis: ""
   };
 
   componentDidMount() {
@@ -21,7 +17,7 @@ class Books extends Component {
   loadBooks = () => {
     API.getBooks()
       .then(res =>
-        this.setState({ books: res.data, title: "", author: "", synopsis: "" })
+        this.setState({ books: res.data})
       )
       .catch(err => console.log(err));
   };
@@ -32,58 +28,40 @@ class Books extends Component {
       .catch(err => console.log(err));
   };
 
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-  };
-
-  handleFormSubmit = event => {
-    event.preventDefault();
-    if (this.state.title && this.state.author) {
-      API.saveBook({
-        title: this.state.title,
-        author: this.state.author,
-        synopsis: this.state.synopsis
-      })
-        .then(res => this.loadBooks())
-        .catch(err => console.log(err));
-    }
-  };
-
   render() {
     return (
       <Container fluid>
         <Row>
-          <Col size="md-6">
-            <Jumbotron>
-              <h1>What Books Should I Read?</h1>
-            </Jumbotron>
-    
-          </Col>
-          <Col size="md-6 sm-12">
-            <Jumbotron>
-              <h1>Books On My List</h1>
-            </Jumbotron>
-            {this.state.books.length ? (
-              <List>
-                {this.state.books.map(book => (
-                  <ListItem key={book._id}>
-                    <Link to={"/books/" + book._id}>
-                      <strong>
-                        {book.title} by {book.author}
-                      </strong>
-                    </Link>
-                    <DeleteBtn onClick={() => this.deleteBook(book._id)} />
-                  </ListItem>
-                ))}
-              </List>
-            ) : (
-              <h3>No Results to Display</h3>
-            )}
+          <Col size="md-12 sm-12">
+              <h1>Saved Books</h1>
           </Col>
         </Row>
+        <Row>
+            <Col size="xs-12">
+              {!this.state.books.length ? (
+                <h1 className="text-center">No Books to Display</h1>
+              ) : (
+                  <BookList>
+                    {this.state.books.map(book => {
+                      return (
+                        <BookListItem 
+                        bookID={book.id}
+                          title={book.volumeInfo.title}
+                          authors={book.volumeInfo.authors}
+                          href={book.volumeInfo.previewLink}
+                          description={book.volumeInfo.description}
+                          // thumbnail={book.volumeInfo.imageLinks.thumbnail}
+                          thumbnail={"https://placehold.it/300x300"}
+                          >
+                          <DeleteBtn deleteBook={this.deleteBook} />  
+                        </BookListItem>
+                      );
+                    })}
+                  
+                  </BookList>
+                )}
+            </Col>
+          </Row>
       </Container>
     );
   }
