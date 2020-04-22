@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Input from "../components/Input";
 import Button from "../components/Button";
-import SaveBtn from "../components/SaveBtn";
 import API from "../utils/API";
 import { BookList, BookListItem } from "../components/BookList";
 import { Container, Row, Col } from "../components/Grid";
@@ -13,10 +12,10 @@ class Search extends Component {
   };
 
   componentDidMount() {
-    API.searchBooks("Harry Potter")
+    API.searchBooks("Stargirl")
       .then(response => {
-        console.log(response.data);
-          this.setState({books: response.data})
+        // console.log(response.data);
+        this.setState({ books: response.data })
       })
   };
 
@@ -35,21 +34,33 @@ class Search extends Component {
     API.searchBooks(this.state.bookSearch)
       .then(response => {
         this.setState({ books: response.data })
-        console.log(response.data);
+        // console.log(response.data);
       })
       .catch(err => console.log(err));
     console.log("books: " + this.state.books);
   };
 
-  saveBook = bookData => {
+  saveBook = bookID => {
+    console.log(bookID);
+    const thisBook = this.state.books.find(bookID => this.state.books = bookID);
+    console.log(thisBook)
+  console.log( 
+    thisBook.volumeInfo.title, 
+    thisBook.volumeInfo.authors,
+    thisBook.volumeInfo.description,
+    (thisBook.volumeInfo.imageLinks.thumbnail) ? thisBook.volumeInfo.imageLinks.thumbnail : "https://placehold.it/300x300",
+    thisBook.volumeInfo.previewLink);
     API.saveBook({
-      title: bookData.title,
-      authors: bookData.authors,
-      description: bookData.description,
-      image: bookData.image,
-      link: bookData.href
+      title: thisBook.volumeInfo.title,
+      authors: thisBook.volumeInfo.authors,
+      description: thisBook.volumeInfo.description,
+      image: (thisBook.volumeInfo.imageLinks.thumbnail) ? thisBook.volumeInfo.imageLinks.thumbnail : "https://placehold.it/300x300",
+      link: thisBook.volumeInfo.previewLink
     })
-      .then(res => console.log(res))
+        .then(res => {
+          console.log("Saving Book");
+          console.log(res);
+        })
       .catch(err => console.log(err));
 
   }
@@ -94,17 +105,18 @@ class Search extends Component {
                     {this.state.books.map(book => {
                       return (
                         <BookListItem
+                          key={book.id}
                           bookID={book.id}
                           title={book.volumeInfo.title}
                           authors={book.volumeInfo.authors}
                           href={book.volumeInfo.previewLink}
                           description={book.volumeInfo.description}
-                          // thumbnail={book.volumeInfo.imageLinks.thumbnail}
-                          thumbnail={"https://placehold.it/300x300"}
+                          thumbnail={(book.volumeInfo.imageLinks.thumbnail) ? book.volumeInfo.imageLinks.thumbnail : "https://placehold.it/300x300"}
+                          // thumbnail={"https://placehold.it/300x300"}
+                          saveBook={this.saveBook}
                         />
                       );
                     })}
-                  <SaveBtn saveBook={this.saveBook} />
                   </BookList>
                 )}
             </Col>

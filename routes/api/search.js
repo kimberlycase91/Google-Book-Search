@@ -14,7 +14,6 @@ router.get("/search", (req, res) => {
   axios
     .get(URL)
     .then(function(response) {
-      console.log(response.data.items);
       res.json(response.data.items);
     })
     .catch(err => console.log(err));

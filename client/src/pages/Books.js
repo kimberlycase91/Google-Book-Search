@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import DeleteBtn from "../components/DeleteBtn";
 import API from "../utils/API";
 // import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
@@ -52,8 +51,8 @@ class Books extends Component {
                           description={book.volumeInfo.description}
                           // thumbnail={book.volumeInfo.imageLinks.thumbnail}
                           thumbnail={"https://placehold.it/300x300"}
+                          deleteBook={this.description}
                           >
-                          <DeleteBtn deleteBook={this.deleteBook} />  
                         </BookListItem>
                       );
                     })}
