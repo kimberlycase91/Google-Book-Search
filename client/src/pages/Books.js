@@ -16,14 +16,17 @@ class Books extends Component {
   loadBooks = () => {
     API.getBooks()
       .then(res =>
-        this.setState({ books: res.data})
+        this.setState({ books: res.data })
       )
       .catch(err => console.log(err));
   };
 
   deleteBook = id => {
     API.deleteBook(id)
-      .then(res => this.loadBooks())
+      .then(res => {
+        this.loadBooks();
+        console.log("delteting book");
+      })
       .catch(err => console.log(err));
   };
 
@@ -32,34 +35,34 @@ class Books extends Component {
       <Container fluid>
         <Row>
           <Col size="md-12 sm-12">
-              <h1>Saved Books</h1>
+            <h1>Saved Books</h1>
           </Col>
         </Row>
         <Row>
-            <Col size="xs-12">
-              {!this.state.books.length ? (
-                <h1 className="text-center">No Books to Display</h1>
-              ) : (
-                  <SavedList>
-                    {this.state.books.map(book => {
-                      return (
-                        <SavedListItem 
+          <Col size="xs-12">
+            {!this.state.books.length ? (
+              <h1 className="text-center">No Books to Display</h1>
+            ) : (
+                <SavedList>
+                  {this.state.books.map(book => {
+                    return (
+                      <SavedListItem
                         key={book._id}
                         bookID={book._id}
-                          title={book.title}
-                          authors={book.authors}
-                          href={book.link}
-                          description={book.description}
-                          thumbnail={book.image}
-                          deleteBook={this.deleteBook}
-                          >
-                        </SavedListItem>
-                      );
-                    })}
-                  </SavedList>
-                )}
-            </Col>
-          </Row>
+                        title={book.title}
+                        authors={book.authors}
+                        href={book.link}
+                        description={book.description}
+                        thumbnail={book.image}
+                        deleteBook={this.deleteBook}
+                      >
+                      </SavedListItem>
+                    );
+                  })}
+                </SavedList>
+              )}
+          </Col>
+        </Row>
       </Container>
     );
   }
