@@ -42,19 +42,13 @@ class Search extends Component {
 
   saveBook = bookID => {
     console.log(bookID);
-    const thisBook = this.state.books.find(bookID => this.state.books = bookID);
-    console.log(thisBook)
-  console.log( 
-    thisBook.volumeInfo.title, 
-    thisBook.volumeInfo.authors,
-    thisBook.volumeInfo.description,
-    (thisBook.volumeInfo.imageLinks.thumbnail) ? thisBook.volumeInfo.imageLinks.thumbnail : "https://placehold.it/300x300",
-    thisBook.volumeInfo.previewLink);
-    API.saveBook({
+    let thisBook = this.state.books.find(bookID => this.state.books = bookID);
+    console.log(thisBook);
+      API.saveBook({
       title: thisBook.volumeInfo.title,
-      authors: thisBook.volumeInfo.authors,
+      authors: thisBook.volumeInfo.authors[0],
       description: thisBook.volumeInfo.description,
-      image: (thisBook.volumeInfo.imageLinks.thumbnail) ? thisBook.volumeInfo.imageLinks.thumbnail : "https://placehold.it/300x300",
+      image: thisBook.volumeInfo.imageLinks.thumbnail,
       link: thisBook.volumeInfo.previewLink
     })
         .then(res => {
@@ -62,7 +56,7 @@ class Search extends Component {
           console.log(res);
         })
       .catch(err => console.log(err));
-
+      thisBook = [];
   }
 
   render() {
