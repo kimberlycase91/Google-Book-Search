@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import API from "../utils/API";
 // import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
-import { BookList, BookListItem } from "../components/BookList";
+import { SavedList, SavedListItem } from "../components/SavedList";
 
 class Books extends Component {
   state = {
@@ -40,24 +40,23 @@ class Books extends Component {
               {!this.state.books.length ? (
                 <h1 className="text-center">No Books to Display</h1>
               ) : (
-                  <BookList>
+                  <SavedList>
                     {this.state.books.map(book => {
                       return (
-                        <BookListItem 
-                        bookID={book.id}
-                          title={book.volumeInfo.title}
-                          authors={book.volumeInfo.authors}
-                          href={book.volumeInfo.previewLink}
-                          description={book.volumeInfo.description}
-                          // thumbnail={book.volumeInfo.imageLinks.thumbnail}
-                          thumbnail={"https://placehold.it/300x300"}
-                          deleteBook={this.description}
+                        <SavedListItem 
+                        key={book._id}
+                        bookID={book._id}
+                          title={book.title}
+                          authors={book.authors}
+                          href={book.link}
+                          description={book.description}
+                          thumbnail={book.image}
+                          deleteBook={this.deleteBook}
                           >
-                        </BookListItem>
+                        </SavedListItem>
                       );
                     })}
-                  
-                  </BookList>
+                  </SavedList>
                 )}
             </Col>
           </Row>

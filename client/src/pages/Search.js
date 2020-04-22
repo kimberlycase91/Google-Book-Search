@@ -42,7 +42,8 @@ class Search extends Component {
 
   saveBook = bookID => {
     console.log(bookID);
-    let thisBook = this.state.books.find(bookID => this.state.books = bookID);
+    console.log(this.state.books);
+    let thisBook = this.state.books.find(book => book.id === bookID);
     console.log(thisBook);
       API.saveBook({
       title: thisBook.volumeInfo.title,
