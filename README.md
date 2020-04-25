@@ -12,5 +12,4 @@ When the user clicks "Save" the app saves the book information to the database u
 When the user clicks the "Saved Books" button, the app uses react-router-dom to display the saved books.
 When the user clicks the "Delete" button on a book, the app uses mongoose to remove the book from the database.
 
-## Try it out
-[click here](https://google-book-search-app-1.herokuapp.com/)
+[Try it out](https://google-book-search-app-1.herokuapp.com/)
