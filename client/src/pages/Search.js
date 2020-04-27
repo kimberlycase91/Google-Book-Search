@@ -75,7 +75,7 @@ class Search extends Component {
                         name="bookSearch"
                         value={this.state.bookSearch}
                         onChange={this.handleInputChange}
-                        placeholder="Search For a Book"
+                        placeholder="Search for a book"
                       />
                     </Col>
                     <Col size="xs-3 sm-2">
@@ -108,7 +108,6 @@ class Search extends Component {
                           description={book.volumeInfo.description}
                           thumbnail={(book.volumeInfo.imageLinks) ? book.volumeInfo.imageLinks.thumbnail : "https://placehold.it/300x300"}
                           href={book.volumeInfo.previewLink}
-                          // thumbnail={"https://placehold.it/300x300"}
                           saveBook={this.saveBook}
                         />
                       );

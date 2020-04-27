@@ -1,6 +1,7 @@
 import React from "react";
 import Thumbnail from "../Thumbnail";
 import { Container, Row, Col } from "../Grid";
+import "./style.css";
 
 // Exporting both RecipeList and RecipeListItem from this file
 
@@ -22,10 +23,13 @@ export function BookListItem(props) {
             <h3>{props.title}</h3>
             <p>Written By: {props.authors}</p>
             <p>Description: {props.description}</p>
-            <button>
-              <a target="_blank" rel="noopener noreferrer" href={props.href}>View</a>
-            </button>
-            <button onClick={() =>{props.saveBook(props.bookID)}}>
+            
+              <a target="_blank" rel="noopener noreferrer" href={props.href}>
+               <button type="button" className="btn btn-sm btn-success"> View
+                </button>
+                </a>
+            
+            <button type="button" className="btn btn-sm btn-success" onClick={() =>{props.saveBook(props.bookID)}}>
               Save
             </button>
           </Col>

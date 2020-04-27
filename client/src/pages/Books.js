@@ -33,11 +33,14 @@ class Books extends Component {
   render() {
     return (
       <Container fluid>
+        <Container>
         <Row>
           <Col size="md-12 sm-12">
             <h1>Saved Books</h1>
           </Col>
         </Row>
+        </Container>
+        <Container>
         <Row>
           <Col size="xs-12">
             {!this.state.books.length ? (
@@ -63,6 +66,7 @@ class Books extends Component {
               )}
           </Col>
         </Row>
+        </Container>
       </Container>
     );
   }

@@ -5,17 +5,21 @@ import "./style.css";
 function Nav() {
   return (
     <nav className="navbar navbar-dark bg-dark">
-      <h3>Google Books</h3>
-      <button type="button">
-        <Link to="/">
-          Search
+      <h3>Search and Save Books You Love!</h3>
+      <ul className="navbar-nav">
+        <h5>
+          <Link to="/">
+            Search
       </Link>
-      </button>
-      <button type="buton">
-        <Link to="/saved">
-          Saved
+        </h5>
+        
+        <h5>
+          <Link to="/saved">
+            Saved
       </Link>
-      </button>
+        </h5>
+        
+      </ul>
     </nav>
   );
 }
