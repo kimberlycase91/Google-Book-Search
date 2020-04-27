@@ -14,8 +14,9 @@ class Search extends Component {
   componentDidMount() {
     API.searchBooks("girl, wash your face")
       .then(response => {
-        // console.log(response.data);
-        this.setState({ books: response.data })
+        console.log(response.data);
+        this.setState({ books: response.data });
+        console.log(this.state.books[0].volumeInfo.imageLinks.smallThumbnail)
       })
   };
 
@@ -104,10 +105,10 @@ class Search extends Component {
                           bookID={book.id}
                           title={book.volumeInfo.title}
                           authors={book.volumeInfo.authors}
-                          href={book.volumeInfo.previewLink}
                           description={book.volumeInfo.description}
-                          // thumbnail={book.volumeInfo.imageLinks.thumbnail}
-                          thumbnail={"https://placehold.it/300x300"}
+                          thumbnail={(book.volumeInfo.imageLinks) ? book.volumeInfo.imageLinks.thumbnail : "https://placehold.it/300x300"}
+                          href={book.volumeInfo.previewLink}
+                          // thumbnail={"https://placehold.it/300x300"}
                           saveBook={this.saveBook}
                         />
                       );
